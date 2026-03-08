@@ -1,3 +1,6 @@
+import pandas as pd
+from extraction import full_dataframe_extraction
+import benchmarks
 print("How many actions?")
 n=int(input())
 print("which ones? (remeber the tickers have to end in .CO country initials)")
@@ -8,3 +11,8 @@ print("Which start date? (has to be format yyyymmdd)")
 start_date=int(input())
 print("Which end date? (has to be format yyyymmdd)")
 end_date=int(input())
+print("Which rebalancing period?")
+period=int(input())
+
+df=full_dataframe_extraction(tickers, start_date, end_date)
+print(df)

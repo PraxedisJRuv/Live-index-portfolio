@@ -1,1 +1,2 @@
-companies=["AAPL", "MSFT", "NVDA", "AMZN"]
+import sys
+print(sys.executable)
