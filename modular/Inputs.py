@@ -12,7 +12,7 @@ start_date=int(input())
 print("Which end date? (has to be format yyyymmdd)")
 end_date=int(input())
 print("Which rebalancing period?")
-period=int(input())
+period=str(input())
 
 df=full_dataframe_extraction(tickers, start_date, end_date)
 print(df)

@@ -1,6 +1,8 @@
 def amount_of_periods(period):
-    from inputs import start_date as start
-    from inputs import end_date as end
+    #from inputs import start_date as start
+    #from inputs import end_date as end
+    from main_module import start 
+    from main_module import end
     num_periods = (end - start) / period
     round_num_periods=(end - start)//period
     if num_periods!=round_num_periods:
@@ -10,7 +12,7 @@ def amount_of_periods(period):
 def calc_dev_by_period(df,companies, period):
     deviations_by_period=[]
     for company in companies:
-        deviation=(df[f"{company}_High"] - df[f"{company}_Low"]).resample(period).std()
+        deviation=(df[f"{company} High"] - df[f"{company} Low"]).resample(period).std()
         deviations_by_period.append(deviation)
     return deviations_by_period
 
@@ -20,10 +22,12 @@ def calc_vola(df, companies, period):
     volatility_weight=[]
     for i in range(num_periods):
         volatility_weight.append([])
-        deviations_by_period[i]=1/deviations_by_period[i]
-        desv_sum=deviations_by_period[i].sum()
+        desv_sum=0
         for j in range(len(companies)):
-            volatility_weight[i].append(deviations_by_period[i][j]/desv_sum)
+            deviations_by_period[j][i]=1/deviations_by_period[j][i]
+            desv_sum=desv_sum+deviations_by_period[j][i]
+        for j in range(len(companies)):
+            volatility_weight[i].append(deviations_by_period[j][i]/desv_sum)
     return volatility_weight
 
 def calc_EW(companies, period):
