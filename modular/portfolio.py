@@ -18,8 +18,13 @@ def portfolio_vlaue_by_asset(benchmark, df, period, tickers):
             portfolio[j].append(benchmark[i][j]*valores[i])
     return portfolio
 
-def portfolio_returns(portfolio,period,tickers):
+def portfolio_returns(portfolio,period):
     periods=amount_of_periods(period)
-    port_r=[0]*periods
+    port_return=[0]*periods
     for i in range(periods-1):
-        port_r[i]=(portfolio[i+1]/portfolio[i])-1
+        port_return[i]=(portfolio[i+1]/portfolio[i])-1
+    return port_return
+
+def turnover(portfolio,index):
+    turnover=(portfolio-index).std()
+    return turnover

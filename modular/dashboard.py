@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from benchmarks import amount_of_periods
-from main_module import end, start, period, returns
 
 from datetime import datetime, timedelta
 from extraction import full_dataframe_extraction
@@ -21,13 +20,14 @@ vola=bm.calc_vola(df,tickers,period)
 portafolio=port.portfolio_value(vola,df,period,tickers)
 #print(portafolio)
 returns=port.portfolio_returns(portafolio,period)
+returns=np.array(returns)
 
 st.set_page_config(layout="wide")
 
 st.title("Portfolio Analytics Dashboard")
 
 periods=amount_of_periods(period)
-index_returns = np.random.normal(0.1, 0.1, periods)
+index_returns = np.random.normal(0.01, 0.1, periods)
 dates = pd.date_range(start, end, periods)
 
 portfolio_value = (1 + returns).cumprod()
