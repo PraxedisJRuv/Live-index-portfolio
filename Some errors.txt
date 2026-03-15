@@ -1,0 +1,7 @@
+Ahorita el problema es con pybind
+python setup.py build_ext --inplace
+cl debería aparecer como comando reconocido
+
+conda install -c conda-forge compilers pybind11
+
+también se puede instalar directamente los compiladores para esto, creo que era lo mejor

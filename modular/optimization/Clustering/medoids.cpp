@@ -19,8 +19,6 @@ double sum_total(
 
         sum = sum+best;
     }
-    cout<<"sum: "<<sum<<"\n";
-
     return sum;
 }
 
