@@ -11,9 +11,9 @@ dist = np.array([
 
 medoids = [0,1]
 
-result = kmedoids_cpp.run_kmedoids(dist, medoids)
-
-print(result)
+def clustering_medoids(dist, medoids):
+    result = kmedoids_cpp.run_kmedoids(dist, medoids)
+    print(result)
 
 """
         {1,0.5,0,0,0},

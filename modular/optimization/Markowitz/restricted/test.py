@@ -17,7 +17,7 @@ wb = [0.1,0.03,0.7,0.07,0.1]
 w_prev = np.array([0.2,0.2,0.2,0.2,0.2])
 
 # Turnover penalty
-lambda_turnover = 0.1
+lambda_turnover = 0.05
 
 # Optimizar
 w_opt = markowitz_cpp.optimize_portfolio(Sigma, wb, w_prev, lambda_turnover)
