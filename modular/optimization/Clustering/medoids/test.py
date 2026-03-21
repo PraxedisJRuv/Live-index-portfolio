@@ -15,6 +15,7 @@ def clustering_medoids(dist, medoids):
     result = kmedoids_cpp.run_kmedoids(dist, medoids)
     print(result)
 
+clustering_medoids(dist,medoids)
 """
         {1,0.5,0,0,0},
         {0.5,1,0,0,0},
