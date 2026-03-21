@@ -23,16 +23,16 @@ def calc_dev_by_period(df,companies, period):
         deviations_by_period.append(deviation)
     return deviations_by_period
 
-def calc_vola(df, companies, period,num_periods):
-    deviations_by_period=calc_dev_by_period(df,companies, period)
+def calc_vola(df, period,num_periods, tickers):
+    deviations_by_period=calc_dev_by_period(df,tickers, period)
     volatility_weight=[]
     for i in range(num_periods):
         volatility_weight.append([])
         desv_sum=0
-        for j in range(len(companies)):
+        for j in range(len(tickers)):
             deviations_by_period[j][i]=1/deviations_by_period[j][i]
             desv_sum=desv_sum+deviations_by_period[j][i]
-        for j in range(len(companies)):
+        for j in range(len(tickers)):
             volatility_weight[i].append(deviations_by_period[j][i]/desv_sum)
     return volatility_weight
 
@@ -45,3 +45,9 @@ def calc_EW(companies, num_periods):
         for j in range(len(companies)):
             ew_weight[i].append(weight)
     return ew_weight
+
+def assign_by_cluster(medoids,list):
+    cluster=[]
+    for i in range(len(medoids)):
+        cluster.append(list[medoids[i]])
+    return cluster

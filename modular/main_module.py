@@ -3,8 +3,10 @@ from datetime import datetime, timedelta
 from extraction import full_dataframe_extraction, index_dataframe_extraction
 import benchmarks as bm
 import portfolio as port
+from optimization.Clustering.medoids.kmedoids import clustering_medoids
+from optimization.Markowitz.usual.markowitz import markowitz
 tickers = ["AAPL.US","MSFT.US","ADBE.US","AMZN.US","PEP.US"]
-index="^NDX"
+index_name="^NDX"
 end=datetime(2026,3,15)
 start=datetime(2024,3,17)
 # por ahora por falla de stooq df=full_dataframe_extraction(tickers, start, end)
@@ -13,12 +15,25 @@ df = pd.read_csv("C:/Users/praxy/OneDrive/Escritorio/Progra/Tests_for_live_index
 index=pd.read_csv("C:/Users/praxy/OneDrive/Escritorio/Progra/Tests_for_live_index/index_t.csv", index_col=0, parse_dates=True)
 period=pd.Timedelta("2W")
 num_periods=bm.amount_of_periods(period,start,end)
-portfolio=port.general_portfolio_values(df,period,num_periods,tickers)
-print(portfolio)
-print(port.general_portfolio_returns(portfolio,num_periods))
-correlation=port.general_metrizised_correlation_matrix(df,period,num_periods,tickers)
-print(correlation)
+#portfolio=port.general_portfolio_values(df,period,num_periods,tickers)
+#print(portfolio)
+#print(port.general_portfolio_returns(portfolio,num_periods))
 
+correlation=port.general_metrizised_correlation_matrix(df,period,num_periods,tickers)
+num_medoids=2
+medoids=clustering_medoids(correlation,num_medoids)
+
+tickers=bm.assign_by_cluster(medoids,tickers)
+vola_weight=bm.calc_vola(df,period,num_periods,tickers)
+portfolio=port.portfolio_vlaue_by_asset(vola_weight,df,period,num_periods,tickers)
+
+portfolio_return=port.general_portfolio_returns(portfolio,num_periods)
+index_return=bm.index_returns(index,period,num_periods,index_name)
+
+sigma=port.cov_matrix(index_return,portfolio_return,num_periods)
+optimizados=markowitz(sigma,vola_weight[0])
+print(vola_weight[0])
+print(optimizados)
 #ew=bm.calc_EW(tickers,period)
 #print(ew)
 def debugeando():
