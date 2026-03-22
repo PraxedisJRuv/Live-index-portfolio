@@ -1,3 +1,4 @@
+#This is intended as script for testing kmedodis.cpp. It's great to use when changes are made
 import numpy as np
 import kmedoids_cpp
 

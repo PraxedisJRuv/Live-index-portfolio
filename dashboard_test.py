@@ -1,3 +1,5 @@
+#this is a test with simulated data that was made in orther to see what could be done using streamlit and 
+#For starting thinking in what should the pipline should look like and how the streamlit workflow process is
 import streamlit as st
 import pandas as pd
 import numpy as np

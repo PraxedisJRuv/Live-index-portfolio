@@ -1,3 +1,5 @@
+#This functions as a mediator bewtween cpp and the main oython piepline
+#This allows the main python scripts to handle the cpp process as if it was pythons 
 import kmedoids_cpp
 
 def clustering_medoids(dist,num_medoids):
