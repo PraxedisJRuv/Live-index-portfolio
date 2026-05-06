@@ -1,5 +1,6 @@
 # Index Portfolio Tool
 Tool that allows you to comfortarbly extract real data to robustly build index portfolios and compare different metrics while having some visual aid, in a fast an intuitive manner.
+
 ## Features
 - Has an interactive dashboard in which can adjust parameters and extract real information regarding 100 companies of the Nasdaq 100, and the Nasdaq 100, SP500 and IPC indexes.
 - Build portfolios based in benchmarks. Currently: volatility and equally weighted. 
