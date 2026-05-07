@@ -1,7 +1,7 @@
 def portfolio_value(benchmark, df, period, num_periods, tickers):
     portfolio=[0]*num_periods
     for j in range(len(tickers)):
-        valores=df[f"{tickers[j]} Close"].resample(period).mean()
+        valores=df[f"{tickers[j]}_Close"].resample(period).mean()
         for i in range(num_periods):
             portfolio[i]=portfolio[i]+benchmark[i][j]*valores[i]
     return portfolio
@@ -10,15 +10,24 @@ def general_portfolio_values(df, period, num_periods,tickers):
     portfolio=[]
     for j in range(len(tickers)):
         portfolio.append([])
-        valores=df[f"{tickers[j]} Close"].resample(period).mean()
+        valores=df[f"{tickers[j]}_Close"].resample(period).mean()
         for i in range(num_periods):
-            portfolio[j].append(valores[i])
+            portfolio[j].append(valores.iloc[i])
     return portfolio
+
+def general_portfolio_returns_from_df(df, period, num_periods, tickers):
+    values=general_portfolio_values(df, period, num_periods, tickers)
+    returns=[]
+    for i in range(len(values)):
+        returns.append([])
+        for j in range(len(values[i])-1):
+            returns[i].append((values[i][j+1]/values[i][j])-1)
+    return returns
 
 def portfolio_vlaue_by_asset(benchmark, df, period, num_periods, tickers):
     portfolio=[]
     for j in range(len(tickers)):
-        valores=df[f"{tickers[j]} Close"].resample(period).mean()
+        valores=df[f"{tickers[j]}_Close"].resample(period).mean()
         portfolio.append([])
         for i in range(num_periods):
             portfolio[j].append(benchmark[i][j]*valores[i])
@@ -42,7 +51,7 @@ def correlations_matrix_from_df(tickers, df):
     import pandas as pd
     flag=True
     for ticker in tickers:
-        df_temp=df[f"{ticker} Close"]
+        df_temp=df[f"{ticker}_Close"]
         df_temp=pd.DataFrame(df_temp)
         if flag:
             data=df_temp
@@ -84,3 +93,15 @@ def cov_matrix(index_returns,portfolio_returns,num_periods):
             diferencia[i].append(index_returns[j]-portfolio_returns[i][j])
     matrix=np.cov(diferencia)
     return matrix
+
+def dev_matrix_from_df(df, period, num_periods, tickers):
+    values=general_portfolio_returns_from_df(df,period,num_periods,tickers)
+    desv_returns_matrix=[]
+    for i in range (len(values)):
+        desv_returns_matrix.append([])
+        for q in range(len(values)):
+            suma=0
+            for j in range(len(values[i])):
+                suma=suma+(values[i][j]-values[q][j])**2
+            desv_returns_matrix[i].append(suma)
+    return desv_returns_matrix

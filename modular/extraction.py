@@ -8,7 +8,7 @@ def full_dataframe_extraction(tickers,start, end):
         df_temp=(pd.read_csv(url,parse_dates=["Date"])
             .set_index("Date")
             .sort_index())
-        df_temp.columns = [f"{ticker} Open", f"{ticker} High", f"{ticker} Low", f"{ticker} Close", f"{ticker} Volume"]
+        df_temp.columns = [f"{ticker}_Open", f"{ticker}_High", f"{ticker}_Low", f"{ticker}_Close", f"{ticker}_Volume"]
         if flag:
             data=df_temp
             flag =False
@@ -21,7 +21,7 @@ def index_dataframe_extraction(index,start, end):
     data=(pd.read_csv(url,parse_dates=["Date"])
         .set_index("Date")
         .sort_index())
-    data.columns = [f"{index} Open", f"{index} High", f"{index} Low", f"{index} Close", f"{index} Volume"]
+    data.columns = [f"{index}_Open", f"{index}_High", f"{index}_Low", f"{index}_Close", f"{index}_Volume"]
     return data
 
 

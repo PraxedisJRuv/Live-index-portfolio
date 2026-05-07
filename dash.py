@@ -9,7 +9,7 @@ from modular.optimization.Clustering.medoids.kmedoids import clustering_medoids
 from modular.optimization.Markowitz.usual.markowitz import markowitz_of_periods
 from modular.extraction import full_dataframe_extraction, index_dataframe_extraction
 import modular.dashboard_utils as du
-from modular.inputs import stocks, indexes, types_period
+from modular.Inputs import stocks, indexes, types_period
 
 st.set_page_config(layout="wide")
 st.title("Portfolio Analytics Dashboard")
