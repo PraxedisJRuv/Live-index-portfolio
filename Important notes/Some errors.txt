@@ -30,6 +30,9 @@ python setup.py install
 Esto para compilar
 
 corrió apropiadamente, éxito
+
+Siempre hay que tener cuidado que el modulo en el setup sea el mismo que el modulo propuesto
+en el archivo cpp.
 """
 
 Parece ser que cuando se actualiza un código en c++ en pybind11, vale madres y hay 
