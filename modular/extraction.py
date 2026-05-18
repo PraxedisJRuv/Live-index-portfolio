@@ -3,12 +3,14 @@ import requests
 from io import StringIO
 import time
 import random
+import os
 
+api_key=os.getenv("AK_STOOQ")
 
 def full_dataframe_extraction(tickers,start, end):
     flag=True
     for ticker in tickers:
-        url=f"https://stooq.com/q/d/l/?s={ticker}&d1={start:%Y%m%d}&d2={end:%Y%m%d}&i=d&apikey=RCkSjFwWKvJzbUH4l9PDmqd8e7pYnacT"
+        url=f"https://stooq.com/q/d/l/?s={ticker}&d1={start:%Y%m%d}&d2={end:%Y%m%d}&i=d&apikey={api_key}"
         print(url)
         df_temp=(pd.read_csv(url,parse_dates=["Date"])
             .set_index("Date")
@@ -22,7 +24,7 @@ def full_dataframe_extraction(tickers,start, end):
     return data
 
 def index_dataframe_extraction(index,start, end):
-    url=f"https://stooq.com/q/d/l/?s={index}&d1={start:%Y%m%d}&d2={end:%Y%m%d}&i=d&apikey=RCkSjFwWKvJzbUH4l9PDmqd8e7pYnacT"
+    url=f"https://stooq.com/q/d/l/?s={index}&d1={start:%Y%m%d}&d2={end:%Y%m%d}&i=d&apikey={api_key}"
     data=(pd.read_csv(url,parse_dates=["Date"])
         .set_index("Date")
         .sort_index())
@@ -52,7 +54,7 @@ HEADERS = {
 def fetch_stooq(ticker: str, start, end) -> pd.DataFrame:
     url = (
         f"https://stooq.com/q/d/l/"
-        f"?s={ticker}&d1={start:%Y%m%d}&d2={end:%Y%m%d}&i=d&apikey=RCkSjFwWKvJzbUH4l9PDmqd8e7pYnacT"
+        f"?s={ticker}&d1={start:%Y%m%d}&d2={end:%Y%m%d}&i=d&apikey={api_key}"
     )
     resp = requests.get(url, headers=HEADERS, timeout=15)
     print(resp.status_code)
