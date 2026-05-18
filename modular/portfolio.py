@@ -3,7 +3,7 @@ def portfolio_value(benchmark, df, period, num_periods, tickers):
     for j in range(len(tickers)):
         valores=df[f"{tickers[j]}_Close"].resample(period).mean()
         for i in range(num_periods):
-            portfolio[i]=portfolio[i]+benchmark[i][j]*valores[i]
+            portfolio[i]=portfolio[i]+benchmark[i][j]*valores.iloc[i]
     return portfolio
 
 def general_portfolio_values(df, period, num_periods,tickers):
@@ -30,7 +30,7 @@ def portfolio_vlaue_by_asset(benchmark, df, period, num_periods, tickers):
         valores=df[f"{tickers[j]}_Close"].resample(period).mean()
         portfolio.append([])
         for i in range(num_periods):
-            portfolio[j].append(benchmark[i][j]*valores[i])
+            portfolio[j].append(benchmark[i][j]*valores.iloc[i])
     return portfolio
 
 def portfolio_returns(portfolio,num_periods):

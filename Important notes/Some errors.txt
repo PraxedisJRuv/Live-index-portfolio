@@ -120,3 +120,8 @@ print(data)
 
 De manera paralela he estado corriendo pruebas con un amigo en Monterrey y él sí recibe los datos, entonces 
 concluyo que Torreón es el problema, continuaré con pruebas hasta volver a Monterrey.
+
+El problema resultó ser que Stooq reestructuro su sitio y ahora hay que agregar una APIKEY
+No hay claridad cadad cuando hay que volver a pedirla o debería de volver a solicitarse, pero
+Cuando la APIKEY no sirva, ahora aparecerá en terminal el mensaje y Stooq explica que debes ir al link manual para
+la descarga del CSV, ese link después de haber usado existosamente un catcha, te permite bajar todo con normalidad.

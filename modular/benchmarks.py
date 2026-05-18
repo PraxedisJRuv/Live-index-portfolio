@@ -30,8 +30,8 @@ def calc_vola(df, period,num_periods, tickers):
         volatility_weight.append([])
         desv_sum=0
         for j in range(len(tickers)):
-            deviations_by_period[j][i]=1/deviations_by_period[j][i]
-            desv_sum=desv_sum+deviations_by_period[j][i]
+            deviations_by_period.iloc[j][i]=1/deviations_by_period.iloc[j][i]
+            desv_sum=desv_sum+deviations_by_period.iloc[j][i]
         for j in range(len(tickers)):
             volatility_weight[i].append(deviations_by_period[j][i]/desv_sum)
     return volatility_weight

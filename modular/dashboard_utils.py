@@ -3,11 +3,11 @@ import numpy as np
 import pandas as pd
 import plotly.express as px
 from datetime import datetime, timedelta
-import benchmarks as bm
-import portfolio as port
-from optimization.Clustering.medoids.kmedoids import clustering_medoids
-from optimization.Markowitz.usual.markowitz import markowitz_of_periods
-from extraction import full_dataframe_extraction, index_dataframe_extraction, preventive_pdreader_extraction, pdreader_full_dataframe_extraction
+import modular.benchmarks as bm
+import modular.portfolio as port
+from modular.optimization.Clustering.medoids.kmedoids import clustering_medoids
+from modular.optimization.Markowitz.usual.markowitz import markowitz_of_periods
+from modular.extraction import full_dataframe_extraction, full_robust_dataframe_extraction, index_dataframe_extraction, preventive_pdreader_extraction, pdreader_full_dataframe_extraction
 
 #Save state
 def save_to_state(key, value):
@@ -24,7 +24,7 @@ def require_keys(keys):
 def run_process_1(tickers,index_name,period,start,end):
     num_periods = bm.amount_of_periods(period,start,end)
 
-    df = full_dataframe_extraction(tickers,start,end)
+    df = full_robust_dataframe_extraction(tickers,start,end)
     index = index_dataframe_extraction(index_name,start,end)
 
     vola = bm.calc_vola(df,period,num_periods,tickers)
@@ -114,7 +114,7 @@ def metrics_and_chart(returns, index_returns, start, end, num_periods, key):
         "Active Returns": active_returns
     })
 
-    days_in_period =int(((start-end).days)-(((start-end).days)*.10))
+    days_in_period =int(((end-start).days)-(((end-start).days)*.10))
     tracking_error = np.std(active_returns) * np.sqrt(days_in_period)
     volatility = np.std(returns) * np.sqrt(days_in_period)
     sharpe = (np.mean(returns) *days_in_period) / volatility
