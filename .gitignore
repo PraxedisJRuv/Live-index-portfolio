@@ -220,7 +220,10 @@ dashboard_test.py
 /dashboard_test.py
 dashboard_test.py/
 
+regression2.py
+regression.py
 test.py
+test2.py
 Usable.csv
 **/comunication.txt
 __pycache__

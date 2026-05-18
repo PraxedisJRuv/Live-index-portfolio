@@ -5,15 +5,15 @@ def amount_of_periods(period,start,end):
         round_num_periods=round_num_periods+1
     return round_num_periods
 
-def index_value(index, period, index_name):
-    index_v=index[f"{index_name}_Close"].resample(period).mean()
+def index_value(index_df, period, index_name):
+    index_v=index_df[f"{index_name}_Close"].resample(period).mean()
     return index_v
 
-def index_returns(index,period,num_periods,index_name):
-    index_v=index_value(index, period, index_name)
+def index_returns(index_df,period,num_periods,index_name):
+    index_v=index_value(index_df, period, index_name)
     index_r=[0]*num_periods
     for i in range(num_periods-1):
-        index_r[i]=(index_v[i+1]/index_v[i])-1
+        index_r[i]=(index_v.iloc[i+1]/index_v.iloc[i])-1
     return index_r
 
 def calc_dev_by_period(df,companies, period):

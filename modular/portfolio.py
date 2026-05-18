@@ -46,7 +46,13 @@ def general_portfolio_returns(portfolio,num_periods):
         for i in range(num_periods-1):
             r[j].append((portfolio[j][i+1]/portfolio[j][i])-1)
     return r
-  
+
+def return_excess_vector(returns_vector, rf_by_period):
+    excess=[]
+    for i in returns_vector:
+        excess.append(i-rf_by_period)
+    return excess
+
 def correlations_matrix_from_df(tickers, df):
     import pandas as pd
     flag=True
